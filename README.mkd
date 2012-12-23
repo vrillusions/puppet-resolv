@@ -1,0 +1,41 @@
+Resolv Module for Puppet
+========================
+
+This is a module that manages the `/etc/resolv.conf` file.  It's basic but I found myself mentioning it often in IRC when referencing how some features in Puppet v3 work.
+
+License
+-------
+
+It's licensed under [Creative Commons CC0](http://creativecommons.org/publicdomain/zero/1.0/) and is free to be used however you want.
+
+Hiera
+-----
+
+One of the features this module takes advantage of is the automatic loading of data from Hiera.  To use this create a file called `/etc/puppet/hiera.yaml` with the following code
+
+    ---
+    :backends:
+      - yaml
+    
+    :yaml:
+      :datadir: /etc/puppet/hieradata
+    
+    :hierarchy:
+      - %{fqdn}
+      - global
+
+This a very basic hierarchy that will first try the fqdn of the host and then a global file.  Now create the file (making the directory if need be) `/etc/puppet/hieradata/global.yaml` with the following content:
+
+    ---
+    # Global Values
+    resolv::search: example.com
+    resolv::nameservers:
+      - 208.67.222.222
+      - 208.67.220.220
+
+Restart puppet master (if you are running through passenger and apache/nginx then restart that).  The way Puppet v3 looks up a variable is it first goes off the class definition when called.  So `class {'resolv': search => 'example.net' }` would be found first.  Next it checks hiera.  The way it determines the name is (class name)::(variable name).  Thus in this case it's `resolv::search`.  If you had a subclass called config it would then lookup `resolv::config::search` (it will only look this value up, it won't go up the hierarchy (eg `resolv::config::search`, `resolv::search`, `search`).  If it does not find it at full class name and variable name it gives up.  Third and finally it uses the value inside the class.  If there is no value specified then it will throw a compile error.
+
+Closing Thoughts
+----------------
+
+This is a simple example as the hiera documentation that's built in to Puppet v3 is very much lacking (as of December 2012).  Keep checking [PuppetLabs Documentation](http://docs.puppetlabs.com/) for more up to date information.
