@@ -1,6 +1,8 @@
 Resolv Module for Puppet
 ========================
 
+[![Build Status](https://secure.travis-ci.org/vrillusions/puppet-resolv.png)](http://travis-ci.org/vrillusions/puppet-resolve)
+
 This is a module that manages the `/etc/resolv.conf` file.  It's basic but I found myself mentioning it often in IRC when referencing how some features in Puppet v3 work.
 
 License
