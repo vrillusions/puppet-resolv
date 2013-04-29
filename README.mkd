@@ -5,6 +5,11 @@ Resolv Module for Puppet
 
 This is a module that manages the `/etc/resolv.conf` file.  It's basic but I found myself mentioning it often in IRC when referencing how some features in Puppet v3 work.
 
+Updated Documentation on Puppet Labs
+------------------------------------
+
+Puppet Labs has a more complete example of using hiera.  This is available at [http://docs.puppetlabs.com/hiera/1/complete_example.html](http://docs.puppetlabs.com/hiera/1/complete_example.html).
+
 License
 -------
 
