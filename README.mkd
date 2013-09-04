@@ -10,6 +10,11 @@ Updated Documentation on Puppet Labs
 
 Puppet Labs has a more complete example of using hiera.  This is available at [http://docs.puppetlabs.com/hiera/1/complete_example.html](http://docs.puppetlabs.com/hiera/1/complete_example.html).
 
+This Projoect is Abandoned
+--------------------------
+
+This was initially intended to be used as a demonstration of hiera's capabilities. There are now better resources from more official sources so don't expect much to happen here.
+
 License
 -------
 
@@ -29,12 +34,12 @@ One of the features this module takes advantage of is the automatic loading of d
     
     :hierarchy:
       - %{fqdn}
-      - global
+      - common
 
-This a very basic hierarchy that will first try the fqdn of the host and then a global file.  Now create the file (making the directory if need be) `/etc/puppet/hieradata/global.yaml` with the following content:
+This a very basic hierarchy that will first try the fqdn of the host and then a common file.  Now create the file (making the directory if need be) `/etc/puppet/hieradata/common.yaml` with the following content:
 
     ---
-    # Global Values
+    # Common Values
     resolv::search: example.com
     resolv::nameservers:
       - 208.67.222.222
@@ -47,4 +52,4 @@ Closing Thoughts
 
 This is a simple example as the hiera documentation that's built in to Puppet v3 is very much lacking (as of December 2012).  Keep checking [PuppetLabs Documentation](http://docs.puppetlabs.com/) for more up to date information.  Also a good source of help is #puppet on freenode irc network.
 
-In this example I'm placing hieradata in a subfolder of /etc. In real world use you should maintain two different repositories.  One of your `/etc/puppet` directory that has your modules and none or very little personal data in it.  Then create another for your personal data and private modules.  This makes it easier to contribute to the puppet community and when done properly allows you to make your puppet modules public while keeping sensitive information out of it.  Also remember that you can override what's in global by making a `host.fqdn.com.yaml` file.  So if you have a couple servers that talk to an internal dns server you can specify it there.
+In this example I'm placing hieradata in a subfolder of /etc. In real world use you should maintain two different repositories.  One of your `/etc/puppet` directory that has your modules and none or very little personal data in it.  Then create another for your personal data and private modules.  This makes it easier to contribute to the puppet community and when done properly allows you to make your puppet modules public while keeping sensitive information out of it.  Also remember that you can override what's in common by making a `host.fqdn.com.yaml` file.  So if you have a couple servers that talk to an internal dns server you can specify it there.
